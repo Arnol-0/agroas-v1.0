@@ -235,7 +235,7 @@ export default function AdminPanel({ productos, setProductos, usuarios, setUsuar
                Exportar Excel
              </button>
           </div>
-          <div className="flex items-end gap-3 h-40">
+          <div className="flex items-end gap-3 h-40 overflow-x-auto pb-2">
             {chartData.map((v, i) => {
               // Calculate the correct year for this bar
               // LAST_SIX_MONTHS are indices. We need to know if it belongs to current or previous year.
@@ -529,7 +529,7 @@ export default function AdminPanel({ productos, setProductos, usuarios, setUsuar
                         const counts = LAST_SIX_MONTHS.map(m => userSales.filter(v => new Date(v.fecha).getMonth() === m).length);
                         const max = Math.max(1, ...counts);
                         return (
-                          <div className="flex items-end gap-3 h-28">
+                          <div className="flex items-end gap-3 h-28 overflow-x-auto pb-2">
                             {counts.map((c, i) => (
                               <div key={i} className="flex flex-col items-center h-full justify-end">
                                 <div className="bg-green-600 w-8 rounded-t" style={{ height: `${(c / max) * 100}%`, transition: 'height 300ms ease-out' }} />

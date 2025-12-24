@@ -167,7 +167,7 @@ export default function SemillasEcommerce() {
       )}
 
       {showAdmin ? (
-        <main className="max-w-7xl mx-auto px-4 py-12">
+        <main className="max-w-7xl mx-auto px-4 py-6 md:py-12">
           <AdminPanel
             productos={productos}
             setProductos={setProductos}
