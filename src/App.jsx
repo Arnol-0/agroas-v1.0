@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ShoppingCart, User, Search, Leaf, Menu } from 'lucide-react';
-import agroasLogo from './assets/Logo Agroas.png';
+import agroasLogo from './assets/agroas-logo.png';
 import reactLogo from './assets/react.svg';
 import SidebarDrawer from './components/SidebarDrawer';
 import MainMenu from './components/MainMenu';
