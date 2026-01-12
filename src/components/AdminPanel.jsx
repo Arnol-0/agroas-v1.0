@@ -115,18 +115,6 @@ export default function AdminPanel({ productos, setProductos, usuarios, setUsuar
     setNewProd({ nombre: '', precio: '', imagen: '', descripcion: '' });
   };
 
-  const saveProductEdit = () => {
-    if (!editProduct) return;
-    setProductos(productos.map(p => (p.id === editProduct.id ? editProduct : p)));
-    setEditProduct(null);
-    setShowProductModal(false);
-  };
-  
-  const deleteProduct = (id) => {
-    if (confirm('¿Estás seguro de eliminar este producto?')) {
-      setProductos(productos.filter(p => p.id !== id));
-    }
-  };
 
   const addUser = () => {
     if (!newUser.nombre || !newUser.email) return;
@@ -186,32 +174,6 @@ export default function AdminPanel({ productos, setProductos, usuarios, setUsuar
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Ventas");
     XLSX.writeFile(wb, `ventas_${MONTH_NAMES[monthIndex]}_${year}.xlsx`);
-  };
-
-  const exportWorkerStatsToExcel = (worker) => {
-    const workerSales = ventas.filter(v => v.trabajadorId === worker.id);
-    const data = workerSales.map(v => ({
-      ID: v.id,
-      Fecha: new Date(v.fecha).toLocaleString('es-CL'),
-      Cliente: v.cliente,
-      Total: v.total,
-      Estado: v.estado
-    }));
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Ventas");
-    
-    const summary = [
-      { Métrica: "Total Ventas", Valor: workerSales.length },
-      { Métrica: "Total Ingresos", Valor: workerSales.reduce((acc, v) => acc + v.total, 0) },
-      { Métrica: "Asignadas", Valor: workerSales.filter(v => v.estado === 'asignada').length },
-      { Métrica: "En Atención", Valor: workerSales.filter(v => v.estado === 'en atencion').length },
-      { Métrica: "Finalizadas", Valor: workerSales.filter(v => v.estado === 'finalizada').length }
-    ];
-    const wsSummary = XLSX.utils.json_to_sheet(summary);
-    XLSX.utils.book_append_sheet(wb, wsSummary, "Resumen");
-    
-    XLSX.writeFile(wb, `reporte_trabajador_${worker.nombre.replace(/\s+/g, '_')}.xlsx`);
   };
 
   return (

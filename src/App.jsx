@@ -18,16 +18,10 @@ export default function SemillasEcommerce() {
   const [showWorker, setShowWorker] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
-  const [productos, setProductos] = useState([]);
-  const [usuarios, setUsuarios] = useState([]);
-  const [ventas, setVentas] = useState([]);
-
-  // Load initial data
-  useEffect(() => {
-    setProductos(db.getProducts());
-    setUsuarios(db.getUsers());
-    setVentas(db.getSales());
-  }, []);
+  // Load initial data (initialize state from db to avoid setState-in-effect lint rule)
+  const [productos, setProductos] = useState(() => db.getProducts());
+  const [usuarios, setUsuarios] = useState(() => db.getUsers());
+  const [ventas, setVentas] = useState(() => db.getSales());
 
   // Persist changes
   useEffect(() => {
