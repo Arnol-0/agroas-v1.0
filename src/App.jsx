@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ShoppingCart, User, Search, Leaf, Menu } from 'lucide-react';
+import agroasLogo from './assets/Logo Agroas.png';
+import reactLogo from './assets/react.svg';
 import SidebarDrawer from './components/SidebarDrawer';
 import MainMenu from './components/MainMenu';
 import AdminPanel from './components/AdminPanel';
@@ -116,8 +118,13 @@ export default function SemillasEcommerce() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => { setShowAdmin(false); setShowWorker(false); setShowMainMenu(false); }}>
-              <Leaf className="text-green-600" size={32} />
-              <span className="text-2xl font-extrabold text-green-800 tracking-wide">AGROAS</span>
+              <img
+                src={agroasLogo}
+                alt="AGROAS"
+                onError={(e) => { e.currentTarget.src = reactLogo; }}
+                className="h-10 md:h-12 w-auto"
+              />
+              <span className="sr-only">AGROAS</span>
             </div>
 
             {!showAdmin && !showWorker && (
@@ -142,10 +149,10 @@ export default function SemillasEcommerce() {
                 </div>
               )}
               <button onClick={() => setShowSidebar(true)} className="p-2 rounded-full hover:bg-gray-100 transition" aria-label="Abrir menú">
-                <Menu className="text-green-700" size={24} />
+                <Menu className="text-[#0EA84D]" size={24} />
               </button>
               <button onClick={() => setShowCart(true)} className="relative p-2 hover:bg-gray-100 rounded-full transition">
-                <ShoppingCart className="text-green-700" size={24} />
+                <ShoppingCart className="text-[#0EA84D]" size={24} />
                 {cart.length > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cart.reduce((a, c) => a + c.cantidad, 0)}
@@ -158,10 +165,35 @@ export default function SemillasEcommerce() {
       </header>
 
       {!showAdmin && !showWorker && (
-        <div className="bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-4 drop-shadow">Cultiva tu Propio Jardín</h2>
-            <p className="text-xl opacity-90">Semillas orgánicas de la más alta calidad</p>
+        <div className="relative text-white py-16 overflow-hidden">
+          {/* Capa de imagen de fondo (colocar grass.jpg en /public) */}
+          <div className="absolute inset-0">
+            <div
+              className="w-full h-full bg-center bg-cover"
+              style={{ backgroundImage: 'url(/grass.jpg)' }}
+            />
+          </div>
+
+          {/* Capa de gradiente (más clara) para hacer juego con el logo y mejorar legibilidad */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#34D399]/45 via-[#22C55E]/35 to-[#16A34A]/45" />
+
+          {/* Decoración de hojas para darle estilo flor/planta */}
+          <div className="pointer-events-none absolute inset-0">
+            <Leaf size={72} className="absolute -top-3 left-6 text-white/20" />
+            <Leaf size={64} className="absolute top-10 right-1/3 text-white/10 -rotate-6" />
+            <Leaf size={96} className="absolute top-6 left-1/3 text-white/18 rotate-[18deg] blur-[0.2px]" />
+            <Leaf size={76} className="absolute bottom-10 left-12 text-white/20 -rotate-[14deg]" />
+            <Leaf size={110} className="absolute -bottom-8 right-1/4 text-white/14 rotate-[28deg] blur-[0.6px]" />
+            <Leaf size={68} className="absolute top-1/2 right-6 text-white/22 rotate-[6deg]" />
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 text-center">
+            <img
+              src={agroasLogo}
+              alt="Semillas Agroas"
+              onError={(e) => { e.currentTarget.src = reactLogo; }}
+              className="mx-auto h-16 md:h-24 drop-shadow-lg"
+            />
           </div>
         </div>
       )}
